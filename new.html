@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Memegenerator</title>
+	<style>
+	@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@200&family=Montserrat:wght@300;400;500;700&family=Noto+Sans+Vithkuqi:wght@600&family=Poppins:ital,wght@0,200;0,300;0,500;0,600;0,700;1,200;1,300;1,400;1,500&family=Roboto:wght@400;700&display=swap');
+
+.meme-generator{
+	font-family:'Roboto',sans-serif;
+	text-align:center;
+	
+}
+.meme-generator img{
+	height:430px;
+	object-fit:cover;
+}
+.meme-generator .generate-btn{
+	padding:8px 20px;
+	border:none;
+	border-left:5px solid #222;
+	border-right:5px solid #222;
+	color:red;
+	font-size:20px;
+	margin:24px 0;
+	background-color:#fff;
+	cursor:pointer;
+	transition:all 400ms ease;
+	
+	
+}
+.meme-generator .generate-btn:hover{
+	padding:8px 30px;
+	border-left:5px solid #222;
+	border-right:5px solid #222;
+	letter-spacing:3px;
+}
+
+.meme-generator .meme-author{
+	margin:8px;
+}
+	</style>
+	
+</head>
+	<body>
+		<div class="meme-generator">
+			<button class="generate-btn">Generate_Meme</button>
+			<h2 class="meme-title">Loading...</h2>
+			<img src="" alt="">
+			<div class="meme-author">
+			</div>
+		</div>
+	<script>
+	const generateMemeBtn = document.querySelector(".meme-generator .generate-btn");
+const memeImage = document.querySelector(".meme-generator img");
+const memeTitle = document.querySelector(".mame-title");
+const memeAuthor = document.querySelector(".meme-generator .meme-author");
+
+const updateDetails = (url, title, author) => {
+	memeImage.setAttribute("src",url);
+	memeTitle.innerHTML = title;
+	memeAuthor.innerHTML = author;
+}
+
+const generateMeme = () => {
+	fetch("https://meme-api.com/gimme/wholesomememes")
+	.then((response) => response.json())
+	.then(data => {
+		updateDetails(data.url, data.title, data.author);
+	});
+		
+	};
+
+generateMemeBtn.addEventListener("click", generateMeme);
+
+generateMeme()
+	</script>
+	</body>
+</html>
